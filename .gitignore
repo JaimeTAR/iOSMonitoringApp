@@ -1,0 +1,62 @@
+# =========================
+# macOS
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Kiro
+# =========================
+.kiro/
+
+# =========================
+# Docs (local only)
+# =========================
+/Docs
+
+# =========================
+# Frontend — Xcode / Swift
+# =========================
+frontend/build/
+frontend/DerivedData/
+frontend/*.xcodeproj/xcuserdata/
+frontend/*.xcworkspace/xcuserdata/
+frontend/**/*.xcuserstate
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+
+# =========================
+# Backend — Python / Flask
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.hypothesis/
+htmlcov/
+.coverage
+
+# =========================
+# Credentials / Secrets
+# =========================
+backend/.env
+backend/helm/flask-api/my-values.yaml
+
+# =========================
+# Docker
+# =========================
+*.log

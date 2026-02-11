@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: flask-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 5000
+  nodePort: 30500
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 250m
+    memory: 128Mi
+
+env:
+  supabaseUrl: ""
+  supabaseServiceKey: ""
+  supabaseJwtSecret: ""
+  flaskEnv: "production"
+  secretKey: "change-me-in-production"
