@@ -5,30 +5,33 @@ on:
   pull_request:
 
 jobs:
-  ci:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: pip install flake8
+      - run: flake8 app/ tests/
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt pytest-cov pip-audit
-
-      - name: Run flake8 linting
-        run: flake8 app/ tests/
-
-      - name: Run pytest with coverage
-        run: pytest --tb=short --cov=app --cov-report=xml --cov-report=term
-
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest --tb=short --cov=app --cov-report=xml --cov-report=term
       - name: Upload coverage to Codecov
         if: always()
         uses: codecov/codecov-action@v4
@@ -39,11 +42,38 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Dependency security audit
-        run: pip-audit --strict
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pip-audit
+      - run: pip install -r requirements.txt
+      - run: pip-audit --strict
 
-      - name: Lint Helm chart
-        run: helm lint helm/flask-api/
+  helm-lint:
+    name: Helm Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - run: helm lint helm/flask-api/
 
-      - name: Build Docker image
-        run: docker build -t flask-api:ci .
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: [lint, test, security, helm-lint]
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t flask-api:ci .
