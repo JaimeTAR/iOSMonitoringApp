@@ -1,5 +1,8 @@
 # MonitoringApp
 
+[![CI](https://github.com/JaimeTAR/iOSMonitoringApp/actions/workflows/ci.yml/badge.svg)](https://github.com/JaimeTAR/iOSMonitoringApp/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/JaimeTAR/iOSMonitoringApp/graph/badge.svg)](https://codecov.io/gh/JaimeTAR/iOSMonitoringApp)
+
 A physiological monitoring platform with a SwiftUI iOS client and a Flask REST API backend, connected through a hosted Supabase instance.
 
 ## Project Structure
