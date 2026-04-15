@@ -1,4 +1,4 @@
-# MonitoringApp
+# MonitoringApp [Test]
 
 [![CI](https://github.com/JaimeTAR/iOSMonitoringApp/actions/workflows/ci.yml/badge.svg)](https://github.com/JaimeTAR/iOSMonitoringApp/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/JaimeTAR/iOSMonitoringApp/graph/badge.svg)](https://codecov.io/gh/JaimeTAR/iOSMonitoringApp)
